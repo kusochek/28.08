@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+    }
+
+    .root {
+      height: 100vh;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .block {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 200px;
+      background-color: blue;
+      border: 25px solid yellow;
+      /* display: flex; */
+    }
+
+    .inner-block {
+      width: 50px;
+      height: 50px;
+      background-color: white;
+      margin: auto;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <!-- <div class="root"></div> -->
+  <!-- <div class="block">
+    <div class="inner-block"></div>
+  </div> -->
+
+  <input type="text" name="firstName" class="first-name" />
+  <input type="text" name="lastName" class="last-name" />
+  <button id="submit">Submit</button>
+  <script src="index.js"></script>
+</body>
+</html>

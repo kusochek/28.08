@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .form {
+            border: 1px solid blueviolet;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            width: 600px;
+        }
+
+        .form > label {
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 320px;
+            height: 60px;
+            border-radius: 10px;
+            color: white;
+            background-color: blueviolet;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        #category {
+            display: flex;
+            flex-direction: column;
+            margin-left: 30px;
+        }
+
+        #category label {
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            width: 320px;
+            height: 40px;
+            border-radius: 10px;
+            color: blueviolet;
+            border: 1px solid blueviolet;
+            background-color: #fff;
+            font-size: 18px;
+            padding: 5px 10px;
+            margin-bottom: 30px;
+        }
+    </style>
+    <title>JOKES</title>
+</head>
+<body>
+    <h2>Choose Joke</h2>
+    <form class="form">
+        <label>
+            <input type="radio" name="jokeType" value="random" checked>
+            Random
+        </label>
+        <label>
+            <input type="radio" name="jokeType" value="category">
+            Category
+            <div id="category"></div>
+        </label>
+        <label>
+            <input type="radio" name="jokeType" value="search">
+            Search
+        </label>
+        <input type="text" id="searchText" placeholder="Banana">
+        <button class="submit">Find Joke</button>
+    </form>
+    <script src="script.js"></script>
+</body>
+</html>
