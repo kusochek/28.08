@@ -1,3 +1,19 @@
+// "use strict";
+
+// x = 'It\'s a cat';
+// console.log(x);
+
+// const public = 'public';
+
+// public = 'another';
+
+// f1();
+
+// function f1() {
+//   console.log('f1');
+// }
+// x = 20;
+
 // Функція, що самовизивається (IIFE)
 
 // (function () {
@@ -171,7 +187,11 @@
 //   .then(response => console.log(response));
 
 // for (var i = 0; i < 6; i++) {
-//   setTimeout(() => console.log(i), 1000);
+//   console.log(i);
+// }
+
+// for (var i = 0; i < 6; i++) {
+//   setTimeout(() => console.log(i), 0);
 // }
 
 
