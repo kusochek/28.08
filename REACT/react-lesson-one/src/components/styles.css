@@ -1,0 +1,130 @@
+.header {
+  padding: 0 35px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #c6a2ff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.header h1 {
+  color: #fff;
+  font-size: 50px;
+}
+
+.heder__button {
+  width: 300px;
+  height: 60px;
+  margin-right: 15px;
+  background-color: #fff;
+  border: 1px solid #1c0037;
+  font-size: 25px;
+  color: #1c0037;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.header__input {
+  width: 300px;
+  height: 60px;
+  background-color: #fff;
+  border: 1px solid #1c0037;
+  font-size: 25px;
+  color: #1c0037;
+  padding: 10px 15px;
+  border-radius: 15px;
+  background-color: #fff;
+}
+
+.card {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 35px;
+  border: 1px solid #1c0037;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+p {
+  color: #1c0037;
+}
+
+.title {
+  font-size: 25px;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.description,
+.quality,
+.type {
+  font-size: 18px;
+}
+
+.right__card {
+  width: 300px;
+  min-width: 300px;
+  margin-left: 40px;
+}
+
+.modal-wrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #1c003721;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  max-width: 700px;
+  padding: 30px;
+  background-color: #fff;
+  border: 1px solid #1c0037;
+  border-radius: 15px;
+}
+
+.modal h2 {
+  font-size: 30px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #1c0037;
+  text-align: center;
+}
+
+.modal input {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 20px;
+  border: 1px solid #1c0037;
+  font-size: 20px;
+  color: #1c0037;
+  padding: 10px 15px;
+  border-radius: 15px;
+  background-color: #fff;
+}
+
+.modal button {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #1c0037;
+  font-size: 25px;
+  color: #1c0037;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+button.cancel-button {
+  border: 1px solid red;
+  margin-bottom: 0;
+}
