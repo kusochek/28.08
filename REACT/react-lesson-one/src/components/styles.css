@@ -48,6 +48,26 @@
   border: 1px solid #1c0037;
   border-radius: 15px;
   margin-bottom: 20px;
+  position: relative;
+}
+
+.card span {
+  font-size: 20px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 15px;
+  transition: 1s;
+}
+
+.card .favorite {
+  right: 70px;
+}
+
+.card span:hover {
+  background-color: #1c003743;
 }
 
 p {

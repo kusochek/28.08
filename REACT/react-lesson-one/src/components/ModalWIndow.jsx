@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const ModalWindow = ({ hadleCloseModal, hanleInputChange, handleAddNewMagicItem }) => {
+  // useEffect(() => {
+  //   console.log('mounted');
+
+  //   return () => {
+  //     console.log('unmounted');
+  //   };
+  // }, []);
   return (
     <div className='modal-wrapper'>
       <div className='modal'>

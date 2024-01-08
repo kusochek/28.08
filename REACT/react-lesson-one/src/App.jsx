@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import './App.css';
 import Header from './components/Header';
-import { magicItems } from './constants';
 import MagicItems from './pages/MagicItems';
 import ModalWindow from './components/ModalWIndow';
 import { generateRandomId } from './utils';
+import { magicItems } from './api';
 
 // EXAMPLE HOW WORK USE_SATE
 // function useState(initialState) {
@@ -18,21 +18,32 @@ import { generateRandomId } from './utils';
 // }
 
 const App = () => {
-  const [arrayOfNewMagicItems, setArrayOfNewMagicItems] = useState([]); 
-  const [magicItemsToShow, setMagicItemsToShow] = useState([...arrayOfNewMagicItems, ...magicItems]);
+  const [allMagicItems, setAllMagicItems] = useState([]);
+  const [inputValue, setInputValue] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newMagicItemData, setNewMagicItemData] = useState({
     name: '',
     description: '',
     quality: '',
     type: '',
+    isFavorite: false,
+    source: 'Dungeon master\'s guide',
   });
+
+  const fetchMagicItems = useCallback(async () => {
+    const { data } = await magicItems.get();
+    setAllMagicItems(data);
+  }, []);
+
+  useEffect(() => {
+    fetchMagicItems();
+  }, []);
+
+  const magicItemsToShow = useMemo(() => allMagicItems.filter((item) => item.name.toLowerCase().indexOf(inputValue) !== -1), [allMagicItems, inputValue]);
 
   const filterMagicItems = (event) => {
     const inputValue = event.target.value.toLowerCase();
-
-    const filteredMagicItems = [...arrayOfNewMagicItems, ...magicItems].filter((item) => item.name.toLowerCase().indexOf(inputValue) !== -1);
-    setMagicItemsToShow(filteredMagicItems);
+    setInputValue(inputValue);
   };
 
   const hadleOpenModal = () => {
@@ -51,15 +62,55 @@ const App = () => {
     });
   };
 
-  const addNewMagicItem = () => {
+  const addNewMagicItem = async () => {
     const newMagicItem = {
       ...newMagicItemData,
       id: generateRandomId(),
     };
 
-    setArrayOfNewMagicItems([newMagicItem, ...arrayOfNewMagicItems]);
-    setMagicItemsToShow([newMagicItem, ...magicItemsToShow]);
-    hadleCloseModal();
+    try {
+      const { data } = await magicItems.post(newMagicItem);
+
+      setAllMagicItems([...allMagicItems, data])
+    } catch (error) {
+      console.log(error);
+    } finally {
+      hadleCloseModal();
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await magicItems.delete(id);
+      console.log('deleted');
+
+      setAllMagicItems(allMagicItems.filter((item) => item.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleToggleFavorite = async (id) => {
+    try {
+      const clickedMagicItem = allMagicItems.find((item) => item.id === id);
+      const params = {
+        ...clickedMagicItem,
+        isFavorite: !clickedMagicItem.isFavorite,
+      };
+      
+      const { data } = await magicItems.put(id, params);
+      const updatedMagicItems = allMagicItems.map((item) => {
+        if (item.id === id) {
+          return data;
+        }
+
+        return item;
+      });
+
+      setAllMagicItems(updatedMagicItems);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -68,7 +119,11 @@ const App = () => {
         hanldeFilterMagicItems={filterMagicItems}
         hadleOpenModal={hadleOpenModal}
       />
-      <MagicItems magicItems={magicItemsToShow} />
+      <MagicItems
+        magicItems={magicItemsToShow}
+        handleDelete={handleDelete}
+        handleToggleFavorite={handleToggleFavorite}
+      />
       {isModalOpen &&
         <ModalWindow
           hadleCloseModal={hadleCloseModal}
