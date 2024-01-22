@@ -1,8 +1,21 @@
 import React from 'react';
-import { HeaderWrapper } from './styled';
+import { useNavigate } from 'react-router-dom';
+import { HeaderTitle, HeaderWrapper } from './styled';
 
-const Header = () => (
-  <HeaderWrapper>Trip My Dream</HeaderWrapper>
-);
+const Header = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/');
+  };
+
+  return (
+    <HeaderWrapper>
+      <HeaderTitle onClick={handleClick}>
+        Trip My Dream
+      </HeaderTitle>
+    </HeaderWrapper>
+  );
+};
 
 export default Header;

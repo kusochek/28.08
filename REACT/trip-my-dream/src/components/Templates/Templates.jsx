@@ -1,19 +1,19 @@
 import { Grid } from '@mui/material';
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import Header from '../Header/Header';
-import Countries from '../../pages/Countries/Countries';
 import SideBar from '../SideBar/SideBar';
 
-const Templates = () => (
+const Templates = ({ handleInputChange }) => (
   <Grid container>
     <Grid item xs={12}>
       <Header />
     </Grid>
     <Grid item xs={3}>
-      <SideBar />
+      <SideBar handleInputChange={handleInputChange} />
     </Grid>
     <Grid item xs={9}>
-      <Countries />
+      <Outlet />
     </Grid>
   </Grid>
 );

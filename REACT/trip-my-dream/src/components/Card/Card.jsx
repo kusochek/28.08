@@ -2,15 +2,23 @@ import {
   Button, CardActions, CardContent, CardMedia, Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CardWrapper, DescriptionTypography } from './styled';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import BaseModal from '../BaseModal/BaseModal';
 
-const CardItem = ({ image, title, description }) => {
+const CardItem = ({
+  id, image, title, description,
+}) => {
   const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
+
+  const handleGoToDetails = () => {
+    navigate(`/country/${id}`);
+  };
 
   return (
     <>
@@ -30,7 +38,7 @@ const CardItem = ({ image, title, description }) => {
         </CardContent>
         <CardActions>
           <Button size="small" onClick={handleOpenModal}>Details</Button>
-          <Button size="small">Buy</Button>
+          <Button size="small" onClick={handleGoToDetails}>Buy</Button>
         </CardActions>
       </CardWrapper>
       <ModalWindow isOpen={openModal} handleClose={handleCloseModal}>
@@ -38,6 +46,7 @@ const CardItem = ({ image, title, description }) => {
           title={title}
           image={image}
           description={description}
+          handleClose={handleCloseModal}
         />
       </ModalWindow>
     </>

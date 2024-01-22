@@ -1,26 +1,44 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
+import { CircularProgress } from '@mui/material';
 import CardItem from '../../components/Card/Card';
 import { CountriesWrapper } from './styled';
-import countriesApi from '../../api/services/countries';
+import api from '../../api/services/countries';
 
-const Countries = () => {
+const Countries = ({ searchValue }) => {
+  const [loading, setLoading] = useState(true);
   const [countries, setCountries] = useState([]);
 
   const fetchCountries = useCallback(async () => {
-    const countriesResponse = await countriesApi.fetch();
+    try {
+      const countriesResponse = await api.countriesApi.fetch();
 
-    setCountries(countriesResponse);
+      setCountries(countriesResponse);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
     fetchCountries();
   }, [fetchCountries]);
 
+  const filteredCountries = useMemo(
+    () => countries.filter((country) => country.country.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1),
+    [countries, searchValue],
+  );
+
+  if (loading) return <CircularProgress />;
+
   return (
     <CountriesWrapper>
-      {countries.map((country) => (
+      {filteredCountries.map((country) => (
         <CardItem
           key={country.id}
+          id={country.id}
           title={country.country}
           description={country.description}
           image={country.image}

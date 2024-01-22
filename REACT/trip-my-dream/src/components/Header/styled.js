@@ -10,3 +10,7 @@ export const HeaderWrapper = styled.div`
   color: #072a55;
   font-size: 50px;
 `;
+
+export const HeaderTitle = styled.div`
+  cursor: pointer;
+`;
