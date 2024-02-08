@@ -1,37 +1,27 @@
-import React, {
-  useCallback, useEffect, useMemo, useState,
-} from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { CircularProgress } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import CardItem from '../../components/Card/Card';
 import { CountriesWrapper } from './styled';
-import api from '../../api/services/countries';
+import { countriesThunk } from '../../store/sources/countries';
 
-const Countries = ({ searchValue }) => {
-  const [loading, setLoading] = useState(true);
-  const [countries, setCountries] = useState([]);
-
-  const fetchCountries = useCallback(async () => {
-    try {
-      const countriesResponse = await api.countriesApi.fetch();
-
-      setCountries(countriesResponse);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+const Countries = () => {
+  const {
+    countries, loading, error, filter,
+  } = useSelector((state) => state.countriesReducer);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchCountries();
-  }, [fetchCountries]);
+    dispatch(countriesThunk.fetchCountries());
+  }, [dispatch]);
 
   const filteredCountries = useMemo(
-    () => countries.filter((country) => country.country.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1),
-    [countries, searchValue],
+    () => countries?.filter((country) => country.country.toLowerCase().indexOf(filter.toLowerCase()) !== -1),
+    [countries, filter],
   );
 
   if (loading) return <CircularProgress />;
+  if (error) return <h2>Oops... Something gonna wrong!</h2>;
 
   return (
     <CountriesWrapper>
